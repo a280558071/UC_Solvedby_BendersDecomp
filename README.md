@@ -1,7 +1,7 @@
 # Unit Commitment solved with/without Benders Decomposition
 - This is a MATLAB program example for Unit Commitment problem. You could choose to solve it with/without Benders Decomposition (BD). 
 - You are suggested to read "[UC.pdf](https://github.com/a280558071/UC_Solvedby_BendersDecomp/blob/main/UC.pdf)" (in Chinese) for more information. (Thanks to Biao Zhao (赵彪) in [my research group](https://xinweishen.com/group.html) for his contribution in writing this document)
-- The YALMIP function export() is used to export optimization model parameters for BD. 
+- The YALMIP function [export()](https://yalmip.github.io/command/export/) is used to export optimization model parameters for BD. 
 # Case data and model formulations
 - are given in  "[UC.pdf](https://github.com/a280558071/UC_Solvedby_BendersDecomp/blob/main/UC.pdf)" and [1].
 - [1] G. Morales-España, J. M. Latorre and A. Ramos, "Tight and Compact MILP Formulation for the Thermal Unit Commitment Problem," in IEEE Transactions on Power Systems, vol. 28, no. 4, pp. 4897-4908, Nov. 2013, doi: 10.1109/TPWRS.2013.2251373.
