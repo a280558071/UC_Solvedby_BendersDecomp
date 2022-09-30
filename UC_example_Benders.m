@@ -85,7 +85,7 @@ h1=bar(s_P','stack');
 legend('Unit 1','Unit 2','Unit 3');
 title('UC result solved by Gurobi');
 
-display(['采用gurobi求解，不考虑benders分解所用计算时间: ', num2str(result_NoBD.solvertime),' s']);
+display(['Solve by gurobi，without Benders Decomposition: ', num2str(result_NoBD.solvertime),' s']);
 
 %% (2) Solve the Problem by Benders Decomposition
 % 2.1 Export Model with Gurobi
