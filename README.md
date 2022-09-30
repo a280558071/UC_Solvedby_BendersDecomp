@@ -1,6 +1,6 @@
 # Unit Commitment solved with/without Benders Decomposition
 - This is a MATLAB program example for Unit Commitment problem. You could choose to solve it with/without Benders Decomposition (BD). 
-- You are suggested to read "UC.pdf" (in Chinese) for more information.
+- You are suggested to read "UC.pdf" (in Chinese) for more information. (Thanks to Biao Zhao (赵彪) in my research group for his contribution in writing this document)
 - The YALMIP function export() is used to export optimization model parameters for BD. 
 # Case data and model formulations
 - are given in  https://yalmip.github.io/example/unitcommitment/ and [1].
