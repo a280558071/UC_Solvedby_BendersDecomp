@@ -115,14 +115,26 @@ while iter<=MaxIter
     r_SP=gurobi(SP,SP.params);
 
     if strcmp(r_SP.status,'OPTIMAL')
+       %% add optimality cut
         p = p+1;
         display(['Add optimality cut ',num2str(p),' !']);
         assign(recover(r_model.used_variables(Ind_x)),r_SP.x);
         s_P_BD((3*p-2):3*p,:)=value(P);
-        %% add optimality cut
-        z_UB=r_SP.objval+d'*r_MP.x(2:end);
+        z_UB_new=r_SP.objval+d'*y_hat;
+        if z_UB_new<=z_UB % if upper bound is updated
+            z_UB=z_UB_new;
+%             assign(recover(r_model.used_variables(Ind_y)),r_MP.x(2:end)); % exclude varialbe z in MP
+            s_u_BD_final=value(u);
+            s_v_BD_final=value(v);
+            s_w_BD_final=value(w);
+%             assign(recover(r_model.used_variables(Ind_x)),r_SP.x);
+            s_P_BD_final=value(P);
+        end
+%         z_UB=r_SP.objval+d'*y_hat;
         abs_error=abs((z_UB-z_LB)/z_UB);
+        display(['Upper Bound: ', num2str(z_UB),'  Lower Bound: ', num2str(z_LB),'  Gap: ',num2str(round(abs_error*100,2)),'%']);
         if abs_error<=epsilon
+            display('Benders decomposition converged! The final results are:');
             display(['Upper Bound: ', num2str(z_UB),'  Lower Bound: ', num2str(z_LB),'  Gap: ',num2str(round(abs_error*100,2)),'%']);
             break
         end
@@ -158,8 +170,8 @@ while iter<=MaxIter
     s_w_BD((3*iter-2):3*iter,:)=value(w);
     z_LB=r_MP.objval;
     iter=iter+1;
-    abs_error=abs((z_UB-z_LB)/z_UB);
-    display(['Upper Bound: ', num2str(z_UB),'  Lower Bound: ', num2str(z_LB),'  Gap: ',num2str(round(abs_error*100,2)),'%']);
+%     abs_error=abs((z_UB-z_LB)/z_UB);
+%     display(['Upper Bound: ', num2str(z_UB),'  Lower Bound: ', num2str(z_LB),'  Gap: ',num2str(round(abs_error*100,2)),'%']);
 end
 t_BD_e = toc(t_BD_s);  
 display(['采用Gurobi+benders分解所用计算时间: ',num2str(round(t_BD_e,2)),' s']);
