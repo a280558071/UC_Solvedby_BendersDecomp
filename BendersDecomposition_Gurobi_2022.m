@@ -126,9 +126,9 @@ while iter<=MaxIter
             display(['Upper Bound: ', num2str(z_UB),'  Lower Bound: ', num2str(z_LB),'  Gap: ',num2str(round(abs_error*100,2)),'%']);
             break
         end
-        pi=r_SP.pi;
-        oc(p).A = [1,(pi'*F-d')];  % optimality cut: z>=d'*y+(h-F*y)'*pi ¡ú z+(pi'*F-d')*y>=pi'*h
-        oc(p).b = pi'*h;
+        DualVar=r_SP.pi;
+        oc(p).A = [1,(DualVar'*F-d')];  % optimality cut: z>=d'*y+(h-F*y)'*pi ¡ú z+(pi'*F-d')*y>=pi'*h
+        oc(p).b = DualVar'*h;
         MP.A=[MP.A;oc(p).A];
         MP.rhs=[MP.rhs;oc(p).b];
         MP.sense=[MP.sense;'>'];
@@ -143,9 +143,9 @@ while iter<=MaxIter
         r_SP_n=gurobi(SP_n,SP.params);
         q = q+1;
         display(['Add feasibility cut ',num2str(q),' !']);
-        pi=r_SP_n.pi;
-        fc(q).A = [0,pi'*F];  % feasibility cut: (h-F*y)'*u<=0 ¡ú u'*F*y>=u'*h
-        fc(q).b = pi'*h;
+        DualVar=r_SP_n.pi; % dual variables u^r
+        fc(q).A = [0,DualVar'*F];  % feasibility cut: (h-F*y)'*u^r<=0 ¡ú u^r'*F*y>=u^r'*h
+        fc(q).b = DualVar'*h;
         MP.A=[MP.A;fc(q).A];
         MP.rhs=[MP.rhs;fc(q).b];
         MP.sense=[MP.sense;'>'];
